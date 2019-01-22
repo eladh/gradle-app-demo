@@ -1,0 +1,97 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+	}
+}
+def props = new Properties()
+file("gradle.properties").withInputStream { props.load(it) }
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'	
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
+
+
+
+allprojects {
+	apply plugin: "com.jfrog.artifactory"
+}
+
+
+group = 'com.jfrog'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+println props.getProperty("artifactory_contextUrl") + "/gradle-virtual"
+
+repositories {
+	maven {
+		url props.getProperty("artifactory_contextUrl") + "/gradle-virtual"
+		credentials {
+			username = "${artifactory_user}"
+			password = "${artifactory_password}"
+		}
+	}
+}
+
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.1.2.RELEASE'
+	compile 'com.maxmind.db:maxmind-db:1.2.2'
+	compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-tables', version: '0.40.12'
+	testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
+
+}
+
+test {
+	systemProperty 'spring.profiles.active', 'local'
+}
+
+artifactory {
+	contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+	publish {
+		repository {
+			repoKey = 'gradle-release-local'
+			username = "${artifactory_user}"
+			password = "${artifactory_password}"
+			mavenCompatible = true
+		}
+		defaults {
+			publications('mavenJava')
+		}
+		publishBuildInfo = true
+		publishArtifacts = true
+		publishPom = true
+
+	}
+	resolve {
+		repository {
+			repoKey = 'gradle-release'
+			username = "${artifactory_user}"
+			password = "${artifactory_password}"
+			mavenCompatible = true
+
+		}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
