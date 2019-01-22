@@ -6,7 +6,7 @@ node {
     def buildInfo = Artifactory.newBuildInfo()
 
     stage('Clone sources') {
-        git url: 'https://github.com/eladh/gradle-app-demo'
+        git url: 'https://github.com/eladh/gradle-app-demo.git' ,credentialsId: 'github'
     }
 
     stage ('Artifactory configuration') {
