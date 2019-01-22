@@ -33,15 +33,15 @@ sourceCompatibility = '1.8'
 
 println props.getProperty("artifactory_contextUrl") + "/gradle-virtual"
 
-repositories {
-	maven {
-		url props.getProperty("artifactory_contextUrl") + "/gradle-virtual"
-		credentials {
-			username = "${artifactory_user}"
-			password = "${artifactory_password}"
-		}
-	}
-}
+//repositories {
+//	maven {
+//		url props.getProperty("artifactory_contextUrl") + "/gradle-virtual"
+//		credentials {
+//			username = "${artifactory_user}"
+//			password = "${artifactory_password}"
+//		}
+//	}
+//}
 
 
 dependencies {
@@ -50,7 +50,6 @@ dependencies {
 	compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.1.2.RELEASE'
 	compile 'com.maxmind.db:maxmind-db:1.2.2'
-	compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-tables', version: '0.40.12'
 	testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
 
 }
