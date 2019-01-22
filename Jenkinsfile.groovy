@@ -16,6 +16,9 @@ node('generic') {
         rtGradle.deployer repo:'gradle-local', server: server
         rtGradle.resolver repo:'gradle-virtual', server: server
         rtGradle.usesPlugin = true // Artifactory plugin already defined in build script
+        rtGradle.useWrapper = true
+
+
     }
 
     stage ('Gradle build') {
