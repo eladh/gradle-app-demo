@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/geo")
 public class GeoController {
 
-    @Autowired
-    private GeoService geoService;
+    private final GeoService geoService;
 
-    // Define the log object for this class
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    public GeoController(GeoService geoService) {
+        this.geoService = geoService;
+    }
 
     @RequestMapping("/getIpInfo")
     @ResponseBody
