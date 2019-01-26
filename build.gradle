@@ -50,7 +50,14 @@ dependencies {
 	compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.1.2.RELEASE'
 	compile 'com.maxmind.db:maxmind-db:1.2.2'
-	testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
+
+//	if (project.hasProperty('local')) {
+//		print "true"
+//		dependencies {
+//			compile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
+//		}
+//	}
+	compile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
 
 }
 
