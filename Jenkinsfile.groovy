@@ -22,8 +22,11 @@ node('generic') {
     }
 
     stage ('Gradle build') {
-        rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'clean build', buildInfo: buildInfo
-        rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
+        def path = tool name: 'gradle-4.7', type: 'gradle'
+        sh 'gradle '
+
+//        rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'clean build', buildInfo: buildInfo
+//        rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
 
     }
 
