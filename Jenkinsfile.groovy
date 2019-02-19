@@ -1,4 +1,4 @@
-podTemplate(label: 'jenkins-pipeline' , cloud: 'k8s' , containers: [
+podTemplate(label: 'jenkins-gradle-pipeline' , cloud: 'k8s' , containers: [
         containerTemplate(name: 'gradle', image: 'frekele/gradle:4.7-jdk8u141', command: 'cat', ttyEnabled: true , privileged: true)]) {
 
     node('jenkins-gradle-pipeline') {
