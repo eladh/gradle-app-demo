@@ -2,9 +2,7 @@ podTemplate(label: 'jenkins-gradle-pipeline' , cloud: 'k8s' , containers: [
         containerTemplate(name: 'gradle', image: 'frekele/gradle:4.7-jdk8u141', command: 'cat', ttyEnabled: true , privileged: true)]) {
 
     node('jenkins-gradle-pipeline') {
-        // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
-        def server = Artifactory.server "artifactory-entplus-us-west"
-        // Create an Artifactory Gradle instance.
+        def server = Artifactory.server "artifactory"
         def rtGradle = Artifactory.newGradleBuild()
         def buildInfo = Artifactory.newBuildInfo()
 
