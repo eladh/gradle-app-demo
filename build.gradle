@@ -66,7 +66,7 @@ test {
 }
 
 artifactory {
-	contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+	contextUrl = 'http://artifactory.jfrog.com'   //The base Artifactory URL if not overridden by the publisher/resolver
 	publish {
 		repository {
 			repoKey = 'gradle-local'
