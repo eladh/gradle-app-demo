@@ -10,8 +10,6 @@ buildscript {
 		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
 	}
 }
-def props = new Properties()
-file("gradle.properties").withInputStream { props.load(it) }
 
 
 apply plugin: 'java'
@@ -31,11 +29,9 @@ group = 'com.jfrog'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-println props.getProperty("artifactory_contextUrl") + "/gradle-virtual"
-
 repositories {
 	maven {
-		url props.getProperty("artifactory_contextUrl") + "/gradle-virtual"
+		url 'http://artifactory.jfrog.com/gradle-virtual'
 		credentials {
 			username = "${artifactory_user}"
 			password = "${artifactory_password}"
