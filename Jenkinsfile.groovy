@@ -15,6 +15,7 @@ podTemplate(label: 'jenkins-gradle-pipeline' , cloud: 'k8s' , containers: [
             // Set Artifactory repositories for dependencies resolution and artifacts deployment.
             rtGradle.deployer repo:'gradle-local', server: server
             rtGradle.resolver repo:'gradle-virtual', server: server
+            rtGradle.tool = 'gradle-4.10'
             rtGradle.usesPlugin = true // Artifactory plugin already defined in build script
             rtGradle.useWrapper = false
         }
