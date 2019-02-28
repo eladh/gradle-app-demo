@@ -31,7 +31,7 @@ sourceCompatibility = '1.8'
 
 repositories {
 	maven {
-		url 'http://artifactory.jfrog.com/gradle-virtual'
+		url 'http://artifactory.soleng-demo.jfrog.com/gradle-virtual'
 		credentials {
 			username = "${artifactory_user}"
 			password = "${artifactory_password}"
@@ -43,7 +43,7 @@ repositories {
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+	compile group: 'commons-collections', name: 'printer-dll', version: '1.1.0'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.1.2.RELEASE'
 	compile 'com.maxmind.db:maxmind-db:1.2.2'
 
@@ -62,7 +62,7 @@ test {
 }
 
 artifactory {
-	contextUrl = 'http://artifactory.jfrog.com'   //The base Artifactory URL if not overridden by the publisher/resolver
+	contextUrl = 'http://artifactory.soleng-demo.jfrog.com'   //The base Artifactory URL if not overridden by the publisher/resolver
 	publish {
 		repository {
 			repoKey = 'gradle-local'
