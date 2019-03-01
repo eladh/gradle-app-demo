@@ -11,6 +11,11 @@ buildscript {
 	}
 }
 
+repositories {
+	jcenter()
+
+}
+
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -29,15 +34,6 @@ group = 'com.jfrog'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-repositories {
-	maven {
-		url 'http://artifactory.soleng-demo.jfrog.com/gradle-virtual'
-		credentials {
-			username = "${artifactory_user}"
-			password = "${artifactory_password}"
-		}
-	}
-}
 
 
 dependencies {
@@ -47,13 +43,12 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.1.2.RELEASE'
 	compile 'com.maxmind.db:maxmind-db:1.2.2'
 
-//	if (project.hasProperty('local')) {
-//		print "true"
-//		dependencies {
-//			compile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
-//		}
-//	}
-	compile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
+	if (project.hasProperty('local')) {
+		print "true"
+		dependencies {
+			compile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
+		}
+	}
 
 }
 
@@ -61,33 +56,6 @@ test {
 	systemProperty 'spring.profiles.active', 'local'
 }
 
-artifactory {
-	contextUrl = 'http://artifactory.soleng-demo.jfrog.com'   //The base Artifactory URL if not overridden by the publisher/resolver
-	publish {
-		repository {
-			repoKey = 'gradle-local'
-			username = "${artifactory_user}"
-			password = "${artifactory_password}"
-			mavenCompatible = true
-		}
-		defaults {
-			publications('mavenJava')
-		}
-		publishBuildInfo = true
-		publishArtifacts = true
-		publishPom = true
-
-	}
-	resolve {
-		repository {
-			repoKey = 'gradle-remote'
-			username = "${artifactory_user}"
-			password = "${artifactory_password}"
-			mavenCompatible = true
-
-		}
-	}
-}
 
 publishing {
 	publications {
