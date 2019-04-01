@@ -27,6 +27,14 @@ podTemplate(label: 'jenkins-gradle-pipeline' , cloud: 'k8s' , containers: [
             }
         }
 
+        stage('SonarQube analysis') {
+            def scannerHome = tool 'sonar-server-7.6';
+            withSonarQubeEnv('my-sonar-qube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        }
+
+
         stage ('Publish build info') {
             server.publishBuildInfo buildInfo
         }
