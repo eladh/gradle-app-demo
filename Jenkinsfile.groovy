@@ -23,8 +23,8 @@ podTemplate(label: 'jenkins-gradle-pipeline' , cloud: 'k8s' , containers: [
         stage ('Gradle build') {
             container('gradle') {
                 sh 'gradle clean build'
-//                rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'clean build', buildInfo: buildInfo
-//                rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
+                rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'clean build', buildInfo: buildInfo
+                rtGradle.run rootDir: ".", buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
             }
         }
 
